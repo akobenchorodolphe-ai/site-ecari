@@ -1,0 +1,118 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum AdminRole {
+  RECTORAT
+}
+
+enum Sexe {
+  M
+  F
+}
+
+enum EtatVie {
+  PRETRE
+  RELIGIEUX
+  LAIC_CELIBATAIRE
+  LAIC_MARIE
+}
+
+enum AvisSuperieur {
+  OUI
+  NON
+  JE_NE_SAIS_PAS
+}
+
+enum StatutDossier {
+  SOUMIS
+  ARCHIVE
+}
+
+enum TypeDiplome {
+  DOCTORAT
+  PHD
+  MASTER
+  AUTRE
+}
+
+model AdminUser {
+  id           BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  email        String    @unique(map: "admin_users_email_unique") @db.VarChar(191)
+  passwordHash String    @map("password_hash") @db.VarChar(255)
+  role         AdminRole @default(RECTORAT)
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  @@map("admin_users")
+}
+
+model CeraoCandidate {
+  id                     BigInt            @id @default(autoincrement()) @db.UnsignedBigInt
+  matricule              String?           @unique(map: "cerao_candidates_matricule_unique") @db.VarChar(50)
+  nom                    String            @db.VarChar(100)
+  prenoms                String            @db.VarChar(150)
+  sexe                   Sexe
+  dateNaissance          DateTime?         @map("date_naissance") @db.Date
+  lieuNaissance          String?           @map("lieu_naissance") @db.VarChar(100)
+  nationalite            String?           @db.VarChar(100)
+  photoPath              String?           @map("photo_path") @db.VarChar(255)
+  telephone              String            @db.VarChar(20)
+  whatsapp               String?           @db.VarChar(20)
+  email                  String            @unique(map: "cerao_candidates_email_unique") @db.VarChar(191)
+  etatVie                EtatVie           @map("etat_vie")
+  affiliationReligieuse  String?           @map("affiliation_religieuse") @db.VarChar(255)
+  avisSuperieur          AvisSuperieur     @default(JE_NE_SAIS_PAS) @map("avis_superieur")
+  disponibiliteCandidat  Boolean           @default(true) @map("disponibilite_candidat")
+  statutDossier          StatutDossier     @default(SOUMIS) @map("statut_dossier")
+  dateSoumission         DateTime          @default(now()) @map("date_soumission")
+  createdAt              DateTime          @default(now()) @map("created_at")
+  updatedAt              DateTime          @updatedAt @map("updated_at")
+  degrees                CeraoDegree[]
+  publications           CeraoPublication[]
+
+  @@index([etatVie], map: "cerao_candidates_etat_vie_index")
+  @@index([disponibiliteCandidat], map: "cerao_candidates_disponibilite_index")
+  @@index([nationalite], map: "cerao_candidates_nationalite_index")
+  @@map("cerao_candidates")
+}
+
+model CeraoDegree {
+  id                BigInt         @id @default(autoincrement()) @db.UnsignedBigInt
+  candidateId       BigInt         @map("candidate_id") @db.UnsignedBigInt
+  typeDiplome       TypeDiplome    @map("type_diplome")
+  intitule          String         @db.VarChar(255)
+  institution       String         @db.VarChar(255)
+  pays              String         @db.VarChar(100)
+  anneeObtention    Int            @map("annee_obtention")
+  ordreAffichage    Int            @default(1) @map("ordre_affichage")
+  fichierPreuvePath String         @map("fichier_preuve_path") @db.VarChar(255)
+  fichierThesePath  String?        @map("fichier_these_path") @db.VarChar(255)
+  createdAt         DateTime       @default(now()) @map("created_at")
+  updatedAt         DateTime       @updatedAt @map("updated_at")
+  candidate         CeraoCandidate @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+
+  @@index([candidateId, ordreAffichage], map: "cerao_degrees_candidate_order_index")
+  @@map("cerao_degrees")
+}
+
+model CeraoPublication {
+  id           BigInt         @id @default(autoincrement()) @db.UnsignedBigInt
+  candidateId  BigInt         @map("candidate_id") @db.UnsignedBigInt
+  titre        String         @db.VarChar(255)
+  revueEditeur String         @map("revue_editeur") @db.VarChar(255)
+  lieuParution String?        @map("lieu_parution") @db.VarChar(100)
+  annee        Int
+  lienUrl      String?        @map("lien_url") @db.VarChar(255)
+  createdAt    DateTime       @default(now()) @map("created_at")
+  updatedAt    DateTime       @updatedAt @map("updated_at")
+  candidate    CeraoCandidate @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+
+  @@index([candidateId], map: "cerao_publications_candidate_index")
+  @@map("cerao_publications")
+}

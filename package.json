@@ -9,7 +9,7 @@
     "lint": "eslint",
     "test": "vitest run",
     "test:watch": "vitest",
-    "prisma:generate": "prisma generate",
+    "postinstall": "prisma generate",
     "prisma:migrate:dev": "prisma migrate dev",
     "seed:admin": "node scripts/seed-admin.mjs"
   },

@@ -3,37 +3,49 @@
 import type { FormEvent } from "react";
 import { useState } from "react";
 
-type LeadSubmissionState =
+type SubmissionState =
   | { status: "idle" }
   | { status: "error"; message: string }
   | { reference: string; status: "success"; submittedAt: string };
 
-type DonationDraft = {
-  amount: string;
-  nom: string;
-  prenom: string;
+type StudentRequestDraft = {
   email: string;
+  filiereSouhaitee: string;
+  message: string;
+  niveauSouhaite: string;
+  nom: string;
   phone: string;
-  operator: "WAVE" | "Orange" | "MTN" | "MOOV" | "";
+  prenom: string;
 };
 
-const operators = ["WAVE", "Orange", "MTN", "MOOV"] as const;
+const levelOptions = [
+  "Licence 1",
+  "Licence 2",
+  "Licence 3",
+  "Master 1",
+  "Master 2",
+  "Doctorat",
+] as const;
 
-const initialState: DonationDraft = {
-  amount: "",
-  nom: "",
-  prenom: "",
+const initialState: StudentRequestDraft = {
   email: "",
+  filiereSouhaitee: "",
+  message: "",
+  niveauSouhaite: "",
+  nom: "",
   phone: "",
-  operator: "",
+  prenom: "",
 };
 
-export function DonationForm() {
-  const [form, setForm] = useState<DonationDraft>(initialState);
-  const [submission, setSubmission] = useState<LeadSubmissionState>({ status: "idle" });
+export function StudentPreRegistrationForm() {
+  const [form, setForm] = useState<StudentRequestDraft>(initialState);
+  const [submission, setSubmission] = useState<SubmissionState>({ status: "idle" });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  function updateField<K extends keyof DonationDraft>(key: K, value: DonationDraft[K]) {
+  function updateField<K extends keyof StudentRequestDraft>(
+    key: K,
+    value: StudentRequestDraft[K],
+  ) {
     setForm((current) => ({ ...current, [key]: value }));
   }
 
@@ -49,13 +61,14 @@ export function DonationForm() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          type: "donation",
-          amount: form.amount,
+          type: "student-pre-registration",
           nom: form.nom,
           prenom: form.prenom,
           email: form.email,
           phone: form.phone,
-          operator: form.operator,
+          niveauSouhaite: form.niveauSouhaite,
+          filiereSouhaitee: form.filiereSouhaitee,
+          message: form.message,
         }),
       });
 
@@ -92,27 +105,6 @@ export function DonationForm() {
     <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_20rem]">
       <form className="panel rounded-[2.2rem] px-6 py-6 md:px-7" onSubmit={handleSubmit}>
         <div className="grid gap-5 md:grid-cols-2">
-          <label>
-            <span className="label">Votre don</span>
-            <input
-              className="field"
-              inputMode="numeric"
-              min="1"
-              name="amount"
-              onChange={(event) => updateField("amount", event.target.value)}
-              placeholder="Montant a donner"
-              required
-              type="number"
-              value={form.amount}
-            />
-          </label>
-
-          <div className="rounded-[1.4rem] border border-[rgba(53,79,69,0.12)] bg-white/70 px-4 py-4 text-sm leading-6 text-[#4f6158]">
-            Le paiement mobile n&apos;est pas encore active en ligne. Cette page
-            prepare les informations necessaires avant l&apos;integration WAVE,
-            Orange, MTN et MOOV.
-          </div>
-
           <label>
             <span className="label">Nom</span>
             <input
@@ -153,7 +145,7 @@ export function DonationForm() {
           </label>
 
           <label>
-            <span className="label">Numero de telephone mobile</span>
+            <span className="label">Telephone</span>
             <input
               className="field"
               name="phone"
@@ -164,49 +156,59 @@ export function DonationForm() {
               value={form.phone}
             />
           </label>
+
+          <label>
+            <span className="label">Niveau souhaite</span>
+            <select
+              className="field"
+              name="niveauSouhaite"
+              onChange={(event) => updateField("niveauSouhaite", event.target.value)}
+              required
+              value={form.niveauSouhaite}
+            >
+              <option value="">Choisir un niveau</option>
+              {levelOptions.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <label>
+            <span className="label">Filiere souhaitee</span>
+            <input
+              className="field"
+              name="filiereSouhaitee"
+              onChange={(event) => updateField("filiereSouhaitee", event.target.value)}
+              placeholder="Ex. Droit, Communication, Informatique"
+              required
+              type="text"
+              value={form.filiereSouhaitee}
+            />
+          </label>
         </div>
 
-        <div className="mt-6">
-          <span className="label">Operateur mobile souhaite</span>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {operators.map((operator) => {
-              const isActive = form.operator === operator;
-
-              return (
-                <label
-                  className="ecari-operator-option"
-                  data-active={isActive}
-                  key={operator}
-                >
-                  <input
-                    checked={isActive}
-                    className="sr-only"
-                    name="operator"
-                    onChange={() => updateField("operator", operator)}
-                    required
-                    type="radio"
-                    value={operator}
-                  />
-                  <span className="text-lg font-semibold text-[#18322c]">
-                    {operator}
-                  </span>
-                  <span className="text-sm leading-6 text-[#5a6b63]">
-                    Paiement mobile a relier lors de la prochaine iteration.
-                  </span>
-                </label>
-              );
-            })}
-          </div>
-        </div>
+        <label className="mt-6 block">
+          <span className="label">Message complementaire</span>
+          <textarea
+            className="field min-h-32 resize-y"
+            name="message"
+            onChange={(event) => updateField("message", event.target.value)}
+            placeholder="Precisez votre contexte ou votre besoin si necessaire."
+            rows={5}
+            value={form.message}
+          />
+        </label>
 
         <div className="mt-6 rounded-[1.4rem] border border-[rgba(53,79,69,0.12)] bg-white/72 px-4 py-4 text-sm leading-7 text-[#4f6158]">
-          Votre demande est maintenant enregistree sur la plateforme pour un
-          traitement manuel, avant l&apos;activation complete du paiement mobile.
+          Cette demande permet a l&apos;equipe ECARI de centraliser les intentions
+          avant la mise en ligne du module complet de preinscription.
         </div>
 
         <div className="mt-7 flex flex-col gap-3 sm:flex-row">
           <button className="btn-primary" disabled={isSubmitting} type="submit">
-            {isSubmitting ? "Enregistrement..." : "Enregistrer mon intention de don"}
+            {isSubmitting ? "Enregistrement..." : "Enregistrer ma demande"}
           </button>
           <button
             className="btn-secondary"
@@ -223,12 +225,12 @@ export function DonationForm() {
 
       <aside className="panel rounded-[2.2rem] px-6 py-6 md:px-7">
         <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#7b4e1f]">
-          Operateurs
+          Parcours
         </p>
         <div className="mt-5 flex flex-wrap gap-3">
-          {operators.map((operator) => (
-            <span className="badge" key={operator}>
-              {operator}
+          {levelOptions.map((option) => (
+            <span className="badge" key={option}>
+              {option}
             </span>
           ))}
         </div>
@@ -237,38 +239,18 @@ export function DonationForm() {
           {submission.status === "success" ? (
             <>
               <p className="font-semibold text-[#18322c]">
-                Votre intention de don a bien ete enregistree
+                Votre demande de preinscription est bien enregistree
               </p>
-              <div className="mt-3 space-y-2">
-                <p>
-                  <strong>Reference :</strong> {submission.reference}
-                </p>
-                <p>
-                  <strong>Soumis le :</strong>{" "}
-                  {new Date(submission.submittedAt).toLocaleString("fr-FR")}
-                </p>
-                <p>
-                  <strong>Montant :</strong> {form.amount}
-                </p>
-                <p>
-                  <strong>Nom :</strong> {form.nom}
-                </p>
-                <p>
-                  <strong>Prenom :</strong> {form.prenom}
-                </p>
-                <p>
-                  <strong>Courriel :</strong> {form.email}
-                </p>
-                <p>
-                  <strong>Telephone :</strong> {form.phone}
-                </p>
-                <p>
-                  <strong>Operateur :</strong> {form.operator}
-                </p>
-              </div>
+              <p className="mt-3">
+                <strong>Reference :</strong> {submission.reference}
+              </p>
+              <p>
+                <strong>Soumis le :</strong>{" "}
+                {new Date(submission.submittedAt).toLocaleString("fr-FR")}
+              </p>
               <p className="mt-4">
-                L&apos;equipe ECARI peut maintenant traiter cette demande et revenir
-                vers vous pendant l&apos;integration du paiement mobile.
+                Votre demande pourra etre reprise par l&apos;equipe ECARI pendant la
+                finalisation du futur module etudiant.
               </p>
             </>
           ) : submission.status === "error" ? (
@@ -280,9 +262,8 @@ export function DonationForm() {
             </>
           ) : (
             <p>
-              Renseignez le formulaire pour transmettre une demande exploitable
-              a l&apos;equipe ECARI avant l&apos;activation du paiement mobile sur
-              le site.
+              Utilisez ce formulaire pour laisser une demande exploitable, meme
+              avant la construction du parcours complet de preinscription.
             </p>
           )}
         </div>

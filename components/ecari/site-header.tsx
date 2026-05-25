@@ -29,7 +29,8 @@ export function SiteHeader() {
               className="h-auto w-[7.9rem] mix-blend-multiply md:w-[10.8rem]"
               height={800}
               priority
-              src="/ecari-logo.png"
+              sizes="(max-width: 768px) 126px, 173px"
+              src="/ecari-logo.webp"
               width={1280}
             />
           </div>

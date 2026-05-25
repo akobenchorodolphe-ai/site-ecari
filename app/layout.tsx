@@ -1,14 +1,10 @@
 import type { Metadata } from "next";
+
+import { buildRootMetadata } from "@/lib/ecari/metadata";
+
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: {
-    default: "ECARI | UCAO",
-    template: "%s | ECARI | UCAO",
-  },
-  description:
-    "Plateforme ECARI de l'UCAO avec page d'accueil orientee vers le don, le recensement CERAO, la preinscription etudiante et les partenariats financiers.",
-};
+export const metadata: Metadata = buildRootMetadata();
 
 export default function RootLayout({
   children,

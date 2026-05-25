@@ -1,12 +1,15 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
 import { MarketingPageShell } from "@/components/ecari/marketing-page-shell";
+import { buildPageMetadata } from "@/lib/ecari/metadata";
 
 const contactBlocks = [
   {
-    title: "Coordination ECARI",
+    title: "Demandes enregistrees",
     description:
-      "Page prete a accueillir les coordonnees officielles de reference: email, telephone, adresse et horaires.",
-    note: "Coordonnees institutionnelles a renseigner.",
+      "Les pages Don, Preinscription et Partenaire enregistrent maintenant de vraies demandes exploitables pour traitement manuel.",
+    note: "Chaque demande genere une reference et un horodatage.",
   },
   {
     title: "Recensement CERAO",
@@ -23,6 +26,13 @@ const contactBlocks = [
     cta: "Ouvrir l'espace Rectorat",
   },
 ] as const;
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Contact",
+  description:
+    "Page de contact et d'orientation ECARI pour retrouver les points d'entree utiles du site et les demandes deja activables.",
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

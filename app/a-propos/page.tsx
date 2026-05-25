@@ -1,4 +1,14 @@
+import type { Metadata } from "next";
+
 import { MarketingPageShell } from "@/components/ecari/marketing-page-shell";
+import { buildPageMetadata } from "@/lib/ecari/metadata";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "A propos",
+  description:
+    "Pourquoi ECARI s'interesse a la recherche et a l'innovation pour renforcer la decision, l'autonomie et l'impact academique de l'UCAO.",
+  path: "/a-propos",
+});
 
 const focusAreas = [
   {

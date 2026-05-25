@@ -43,20 +43,20 @@ const cards: readonly (LinkCard | ModalCard)[] = [
     kind: "modal",
   },
   {
-    status: "Bientot",
+    status: "Actif",
     title: "Preinscription Etudiant au rectorat UCAO",
     href: "/preinscription-etudiant",
     visual: "preinscription",
     layout: "compact",
-    overline: "Ouverture prochaine",
+    overline: "Demande ouverte",
   },
   {
-    status: "Ouverture",
+    status: "Actif",
     title: "Partenaire financier Recherche et innovation",
     href: "/partenaire-financier",
     visual: "partner",
     layout: "tall",
-    overline: "Collaboration strategique",
+    overline: "Demande ouverte",
   },
 ] as const;
 

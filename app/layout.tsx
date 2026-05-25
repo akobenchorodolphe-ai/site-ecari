@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     template: "%s | ECARI | UCAO",
   },
   description:
-    "Site vitrine ECARI de l'UCAO, relie a son premier module prioritaire de gestion du vivier des docteurs CERAO.",
+    "Plateforme ECARI de l'UCAO avec page d'accueil orientee vers le don, le recensement CERAO, la preinscription etudiante et les partenariats financiers.",
 };
 
 export default function RootLayout({

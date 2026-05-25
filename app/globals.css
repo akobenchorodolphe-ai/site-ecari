@@ -510,3 +510,480 @@ textarea {
     transform: none;
   }
 }
+
+body.ecari-modal-open {
+  overflow: hidden;
+}
+
+.ecari-home-bg,
+.ecari-page-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 10% 18%, rgba(220, 199, 163, 0.42), transparent 26%),
+    radial-gradient(circle at 88% 12%, rgba(24, 50, 44, 0.1), transparent 22%),
+    linear-gradient(180deg, #f8f4ea 0%, #efe2d4 100%);
+}
+
+.ecari-site-header {
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.94);
+}
+
+.ecari-header-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.94);
+  padding: 0.25rem 0.35rem;
+}
+
+.ecari-site-header__link {
+  min-width: 12rem;
+  border: 1px solid rgba(155, 107, 47, 0.22);
+  background: rgba(255, 255, 255, 0.82);
+  padding: 0.95rem 1.6rem;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c4a997;
+  transition:
+    transform 160ms ease,
+    background 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease;
+}
+
+.ecari-site-header__link:hover,
+.ecari-site-header__link--active {
+  transform: translateY(-1px);
+  border-color: rgba(155, 107, 47, 0.5);
+  background: #b6754e;
+  color: #fffaf4;
+}
+
+.ecari-home-stage {
+  position: relative;
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  margin-top: 1rem;
+  overflow: hidden;
+  border: 1px solid rgba(155, 107, 47, 0.22);
+  border-radius: 0.85rem 0.85rem 0 0;
+  padding: 1.4rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.04)),
+    linear-gradient(145deg, rgba(80, 67, 58, 0.2), rgba(229, 215, 200, 0.34));
+  box-shadow: 0 28px 54px rgba(67, 56, 48, 0.11);
+}
+
+.ecari-home-stage::before {
+  content: "";
+  position: absolute;
+  inset: -12%;
+  background:
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.28), transparent 34%),
+    radial-gradient(circle at 18% 26%, rgba(255, 255, 255, 0.24), transparent 18%),
+    radial-gradient(circle at 82% 24%, rgba(60, 52, 47, 0.16), transparent 18%),
+    url("/ecari-logo.png") center / 28rem auto no-repeat;
+  opacity: 0.14;
+  filter: blur(1px);
+}
+
+.ecari-home-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(30, 24, 21, 0.08), rgba(30, 24, 21, 0));
+}
+
+.ecari-option-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 100%;
+  gap: 1.3rem;
+}
+
+.ecari-option-card {
+  position: relative;
+  display: flex;
+  min-height: 18rem;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(171, 110, 69, 0.35);
+  border-radius: 0.45rem;
+  background: rgba(255, 250, 244, 0.62);
+  box-shadow: 0 24px 42px rgba(51, 42, 36, 0.22);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+
+a.ecari-option-card,
+button.ecari-option-card {
+  color: inherit;
+  text-decoration: none;
+}
+
+button.ecari-option-card {
+  width: 100%;
+  cursor: pointer;
+  padding: 0;
+  border: none;
+}
+
+.ecari-option-card:hover,
+.ecari-option-card:focus-visible {
+  transform: translateY(-4px);
+  border-color: rgba(171, 110, 69, 0.58);
+  box-shadow: 0 28px 46px rgba(51, 42, 36, 0.28);
+}
+
+.ecari-option-card:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.75);
+  outline-offset: 3px;
+}
+
+.ecari-option-card__visual {
+  position: relative;
+  display: flex;
+  flex: 1;
+  min-height: 12rem;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.ecari-option-card__visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(12, 10, 9, 0.14));
+}
+
+.ecari-option-card__visual-top,
+.ecari-option-card__footer {
+  position: relative;
+  z-index: 1;
+}
+
+.ecari-option-card__visual-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.7rem;
+}
+
+.ecari-option-card__overline,
+.ecari-option-card__status {
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(248, 242, 235, 0.84);
+  padding: 0.45rem 0.75rem;
+  font-size: 0.66rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #7b4e1f;
+  backdrop-filter: blur(8px);
+}
+
+.ecari-option-card__status {
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.ecari-option-card__footer {
+  display: flex;
+  min-height: 6.8rem;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  background: linear-gradient(180deg, #b07048 0%, #9e6441 100%);
+  padding: 1.2rem 1.25rem 1.15rem;
+}
+
+.ecari-option-card__title {
+  margin: 0;
+  max-width: 23rem;
+  font-family: "Trebuchet MS", "Gill Sans", sans-serif;
+  font-size: clamp(1.5rem, 1.2rem + 0.95vw, 2.2rem);
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: white;
+}
+
+.ecari-option-card__cta {
+  flex: none;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 249, 241, 0.92);
+}
+
+.ecari-option-card__cta::after {
+  content: " >";
+}
+
+.ecari-option-card[data-visual="cerao"] .ecari-option-card__visual {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(17, 14, 12, 0.26)),
+    radial-gradient(circle at 16% 24%, rgba(255, 255, 255, 0.34), transparent 18%),
+    radial-gradient(circle at 84% 16%, rgba(253, 247, 240, 0.28), transparent 18%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.34) 0 16%, transparent 16% 48%, rgba(255, 255, 255, 0.18) 48% 64%, transparent 64% 100%),
+    linear-gradient(135deg, #e6ddd4 0%, #baa999 32%, #89776a 100%);
+}
+
+.ecari-option-card[data-visual="don"] .ecari-option-card__visual {
+  background:
+    radial-gradient(circle at 18% 68%, rgba(136, 87, 33, 0.94) 0 11%, transparent 11.5%),
+    radial-gradient(circle at 32% 30%, rgba(228, 188, 98, 0.98) 0 9%, transparent 9.5%),
+    radial-gradient(circle at 48% 54%, rgba(193, 132, 59, 0.92) 0 10%, transparent 10.5%),
+    radial-gradient(circle at 62% 28%, rgba(214, 173, 93, 0.96) 0 8%, transparent 8.5%),
+    radial-gradient(circle at 74% 62%, rgba(176, 112, 61, 0.92) 0 10%, transparent 10.5%),
+    radial-gradient(circle at 86% 34%, rgba(225, 190, 110, 0.94) 0 8%, transparent 8.5%),
+    radial-gradient(circle at 56% 74%, rgba(144, 103, 61, 0.92) 0 11%, transparent 11.5%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(0, 0, 0, 0.12)),
+    linear-gradient(135deg, #c6d8e9 0%, #8ea8bb 100%);
+}
+
+.ecari-option-card[data-visual="preinscription"] .ecari-option-card__visual {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(11, 10, 9, 0.18)),
+    linear-gradient(106deg, rgba(59, 57, 55, 0.3) 0 26%, transparent 26%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0 15%, transparent 15%),
+    repeating-linear-gradient(180deg, rgba(92, 140, 191, 0.18) 0 1px, transparent 1px 3rem),
+    linear-gradient(135deg, #f3ece4 0%, #c6a385 100%);
+}
+
+.ecari-option-card[data-visual="partner"] .ecari-option-card__visual {
+  background:
+    radial-gradient(circle at 76% 32%, rgba(255, 255, 255, 0.92) 0 13%, transparent 13.5%),
+    linear-gradient(90deg, transparent 0 58%, rgba(255, 255, 255, 0.86) 58% 100%),
+    linear-gradient(180deg, transparent 0 55%, rgba(255, 255, 255, 0.78) 55% 100%),
+    linear-gradient(0deg, rgba(52, 128, 194, 0.7) 0 11%, transparent 11% 100%),
+    linear-gradient(135deg, #f0e5d8 0%, #c58f61 100%);
+}
+
+.ecari-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(18, 34, 29, 0.55);
+  backdrop-filter: blur(6px);
+}
+
+.ecari-modal__panel {
+  width: min(42rem, 100%);
+  border-radius: 2rem;
+  padding: 1.5rem;
+}
+
+.ecari-home-footer {
+  border: 1px solid rgba(155, 107, 47, 0.24);
+  border-top: none;
+  border-radius: 0 0 0.85rem 0.85rem;
+  background: linear-gradient(180deg, #d2b29d 0%, #c49b81 100%);
+  padding: 1rem 1rem 0.85rem;
+  text-align: center;
+  box-shadow: 0 18px 36px rgba(70, 54, 45, 0.12);
+}
+
+.ecari-home-footer__brandline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem 1.4rem;
+  flex-wrap: wrap;
+  color: #fff9f2;
+  font-family: "Trebuchet MS", "Gill Sans", sans-serif;
+  font-size: clamp(0.95rem, 0.75rem + 0.9vw, 1.65rem);
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.ecari-home-footer__logo {
+  width: clamp(2.8rem, 3vw, 4rem);
+}
+
+.ecari-home-footer__logo-image {
+  height: auto;
+  width: 100%;
+  filter: brightness(0) invert(1);
+  opacity: 0.96;
+}
+
+.ecari-home-footer__copy {
+  margin-top: 0.65rem;
+  font-size: 0.95rem;
+  color: rgba(255, 251, 246, 0.92);
+}
+
+.ecari-page-stack {
+  display: grid;
+  gap: 1.35rem;
+  padding: 1.35rem 0 0;
+}
+
+.ecari-content-card {
+  border-radius: 2.1rem;
+  border: 1px solid rgba(53, 79, 69, 0.12);
+  background: rgba(255, 253, 247, 0.86);
+  padding: 1.5rem;
+  box-shadow:
+    0 20px 40px rgba(36, 51, 45, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.ecari-side-note {
+  border-radius: 2rem;
+  background:
+    linear-gradient(180deg, rgba(24, 50, 44, 0.94), rgba(24, 50, 44, 0.99));
+  padding: 1.5rem;
+  box-shadow: 0 24px 44px rgba(24, 50, 44, 0.22);
+}
+
+.ecari-list-row {
+  border-radius: 1.4rem;
+  border: 1px solid rgba(53, 79, 69, 0.12);
+  background: rgba(255, 255, 255, 0.72);
+  padding: 1rem 1.1rem;
+  color: #44564d;
+  line-height: 1.7;
+}
+
+.ecari-operator-option {
+  display: flex;
+  min-height: 8rem;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.85rem;
+  border-radius: 1.4rem;
+  border: 1px solid rgba(53, 79, 69, 0.12);
+  background: rgba(255, 255, 255, 0.76);
+  padding: 1rem;
+  cursor: pointer;
+  transition:
+    border-color 160ms ease,
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.ecari-operator-option:hover,
+.ecari-operator-option[data-active="true"] {
+  transform: translateY(-2px);
+  border-color: rgba(155, 107, 47, 0.4);
+  box-shadow: 0 18px 30px rgba(24, 50, 44, 0.08);
+}
+
+@media (min-width: 1024px) {
+  .ecari-home-stage {
+    min-height: 0;
+  }
+
+  .ecari-option-grid {
+    min-height: 0;
+    grid-template-columns: minmax(19rem, 1.02fr) minmax(16rem, 0.9fr) minmax(19rem, 1.02fr);
+    grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .ecari-option-card {
+    min-height: 0;
+  }
+
+  .ecari-option-card[data-visual="cerao"] {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+
+  .ecari-option-card[data-visual="don"] {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .ecari-option-card[data-visual="preinscription"] {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .ecari-option-card[data-visual="partner"] {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+  }
+}
+
+@media (max-width: 1023px) {
+  .ecari-home-stage,
+  .ecari-page-stack {
+    padding-top: 1rem;
+  }
+
+  .ecari-option-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .ecari-home-stage {
+    margin-top: 0.75rem;
+    border-radius: 0.75rem 0.75rem 0 0;
+    padding: 0.9rem;
+  }
+
+  .ecari-content-card,
+  .ecari-side-note,
+  .ecari-modal__panel {
+    border-radius: 1rem;
+    padding: 1.2rem;
+  }
+
+  .ecari-option-card {
+    border-radius: 0.85rem;
+  }
+
+  .ecari-option-card {
+    min-height: 16rem;
+  }
+
+  .ecari-option-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ecari-option-card__visual {
+    min-height: 12rem;
+    padding: 0.85rem;
+  }
+
+  .ecari-option-card__footer {
+    min-height: 6rem;
+    padding: 1rem;
+  }
+
+  .ecari-option-card__title {
+    max-width: none;
+    font-size: 1.45rem;
+  }
+
+  .ecari-home-footer {
+    border-radius: 0 0 0.75rem 0.75rem;
+    padding-inline: 0.9rem;
+  }
+
+  .ecari-home-footer__brandline {
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+}

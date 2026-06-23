@@ -322,11 +322,18 @@ button.ecari-option-card {
   padding: 1rem;
 }
 
+.ecari-option-card__image {
+  object-fit: cover;
+  object-position: center;
+}
+
 .ecari-option-card__visual::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(12, 10, 9, 0.14));
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(12, 10, 9, 0.22)),
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.16), transparent 28%);
 }
 
 .ecari-option-card__visual-top,
@@ -392,46 +399,6 @@ button.ecari-option-card {
 
 .ecari-option-card__cta::after {
   content: " >";
-}
-
-.ecari-option-card[data-visual="cerao"] .ecari-option-card__visual {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(17, 14, 12, 0.26)),
-    radial-gradient(circle at 16% 24%, rgba(255, 255, 255, 0.34), transparent 18%),
-    radial-gradient(circle at 84% 16%, rgba(253, 247, 240, 0.28), transparent 18%),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.34) 0 16%, transparent 16% 48%, rgba(255, 255, 255, 0.18) 48% 64%, transparent 64% 100%),
-    linear-gradient(135deg, #e6ddd4 0%, #baa999 32%, #89776a 100%);
-}
-
-.ecari-option-card[data-visual="don"] .ecari-option-card__visual {
-  background:
-    radial-gradient(circle at 18% 68%, rgba(136, 87, 33, 0.94) 0 11%, transparent 11.5%),
-    radial-gradient(circle at 32% 30%, rgba(228, 188, 98, 0.98) 0 9%, transparent 9.5%),
-    radial-gradient(circle at 48% 54%, rgba(193, 132, 59, 0.92) 0 10%, transparent 10.5%),
-    radial-gradient(circle at 62% 28%, rgba(214, 173, 93, 0.96) 0 8%, transparent 8.5%),
-    radial-gradient(circle at 74% 62%, rgba(176, 112, 61, 0.92) 0 10%, transparent 10.5%),
-    radial-gradient(circle at 86% 34%, rgba(225, 190, 110, 0.94) 0 8%, transparent 8.5%),
-    radial-gradient(circle at 56% 74%, rgba(144, 103, 61, 0.92) 0 11%, transparent 11.5%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(0, 0, 0, 0.12)),
-    linear-gradient(135deg, #c6d8e9 0%, #8ea8bb 100%);
-}
-
-.ecari-option-card[data-visual="preinscription"] .ecari-option-card__visual {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(11, 10, 9, 0.18)),
-    linear-gradient(106deg, rgba(59, 57, 55, 0.3) 0 26%, transparent 26%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0 15%, transparent 15%),
-    repeating-linear-gradient(180deg, rgba(92, 140, 191, 0.18) 0 1px, transparent 1px 3rem),
-    linear-gradient(135deg, #f3ece4 0%, #c6a385 100%);
-}
-
-.ecari-option-card[data-visual="partner"] .ecari-option-card__visual {
-  background:
-    radial-gradient(circle at 76% 32%, rgba(255, 255, 255, 0.92) 0 13%, transparent 13.5%),
-    linear-gradient(90deg, transparent 0 58%, rgba(255, 255, 255, 0.86) 58% 100%),
-    linear-gradient(180deg, transparent 0 55%, rgba(255, 255, 255, 0.78) 55% 100%),
-    linear-gradient(0deg, rgba(52, 128, 194, 0.7) 0 11%, transparent 11% 100%),
-    linear-gradient(135deg, #f0e5d8 0%, #c58f61 100%);
 }
 
 .ecari-modal {
@@ -646,5 +613,668 @@ button.ecari-option-card {
   .ecari-home-footer__brandline {
     flex-direction: column;
     gap: 0.55rem;
+  }
+}
+
+/* Current ECARI public site */
+.ecari-site-header {
+  position: relative;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 7.5rem;
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 1px 0 rgba(69, 48, 39, 0.08);
+}
+
+.ecari-site-header > div {
+  width: min(1720px, 100%);
+}
+
+.ecari-header-logo {
+  background: transparent;
+  padding: 0;
+}
+
+.ecari-site-header__link {
+  min-width: auto;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0.45rem 0 0.62rem;
+  color: #111;
+  font-size: 1rem;
+  letter-spacing: 0;
+  position: relative;
+}
+
+.ecari-site-header__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: #9b563d;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 160ms ease;
+}
+
+.ecari-site-header__link:hover,
+.ecari-site-header__link--active {
+  transform: none;
+  border-color: transparent;
+  background: transparent;
+  color: #111;
+}
+
+.ecari-site-header__link:hover::after,
+.ecari-site-header__link--active::after {
+  transform: scaleX(1);
+}
+
+.ecari-site-header__donate {
+  display: none;
+  border-radius: 0.55rem;
+  background: linear-gradient(180deg, #a76248 0%, #8d4a36 100%);
+  color: white;
+  padding: 1rem 1.4rem;
+  font-weight: 800;
+  line-height: 1;
+  box-shadow: 0 14px 26px rgba(96, 51, 38, 0.2);
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.ecari-site-header__donate:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 30px rgba(96, 51, 38, 0.25);
+}
+
+.ecari-home-page,
+.ecari-marketing-page {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: #efe9df;
+}
+
+.ecari-home-showcase {
+  position: relative;
+  min-height: calc(100vh - 12.5rem);
+  background:
+    linear-gradient(180deg, rgba(17, 17, 17, 0.48), rgba(17, 17, 17, 0.12)),
+    url("/ecari-home-backdrop.webp") center / cover no-repeat;
+  padding: 4rem 1.5rem 0.7rem;
+}
+
+.ecari-home-showcase__shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(16, 18, 18, 0.16), rgba(16, 18, 18, 0.02) 48%, rgba(255, 255, 255, 0.22));
+}
+
+.ecari-home-showcase__inner {
+  position: relative;
+  z-index: 1;
+  width: min(1740px, 100%);
+  margin: 0 auto;
+}
+
+.ecari-home-heading {
+  color: white;
+  text-align: center;
+  text-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
+}
+
+.ecari-home-heading h1 {
+  margin: 0;
+  font-family: "Trebuchet MS", "Gill Sans", sans-serif;
+  font-size: 2.85rem;
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.ecari-home-heading p {
+  margin: 0.55rem auto 0;
+  max-width: 62rem;
+  font-size: 1.28rem;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.ecari-home-showcase .ecari-option-grid {
+  margin-top: 2.5rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.6rem;
+}
+
+.ecari-home-showcase .ecari-option-card,
+.ecari-home-showcase .ecari-option-card[data-visual="cerao"],
+.ecari-home-showcase .ecari-option-card[data-visual="don"],
+.ecari-home-showcase .ecari-option-card[data-visual="preinscription"],
+.ecari-home-showcase .ecari-option-card[data-visual="partner"] {
+  grid-column: auto;
+  grid-row: auto;
+}
+
+.ecari-home-showcase .ecari-option-card {
+  min-height: 33.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 0.8rem;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 24px 46px rgba(35, 28, 25, 0.22);
+}
+
+.ecari-home-showcase .ecari-option-card:hover,
+.ecari-home-showcase .ecari-option-card:focus-visible {
+  transform: translateY(-5px);
+  box-shadow: 0 30px 52px rgba(35, 28, 25, 0.28);
+}
+
+.ecari-option-card__media {
+  position: relative;
+  min-height: 16.2rem;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(84, 51, 38, 0.12);
+}
+
+.ecari-option-card__image {
+  object-fit: cover;
+  object-position: center;
+}
+
+.ecari-option-card__body {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  padding: 3.1rem 2rem 1.6rem;
+  text-align: center;
+}
+
+.ecari-option-card__badge {
+  position: absolute;
+  top: -2.35rem;
+  left: 50%;
+  display: flex;
+  height: 4.6rem;
+  width: 4.6rem;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-50%);
+  border-radius: 9999px;
+  background: #f6efe8;
+  color: #9b563d;
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  box-shadow: 0 10px 26px rgba(71, 45, 35, 0.14);
+}
+
+.ecari-home-showcase .ecari-option-card__status {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  border: 1px solid rgba(155, 86, 61, 0.12);
+  background: rgba(255, 255, 255, 0.88);
+  color: #9b563d;
+  letter-spacing: 0;
+}
+
+.ecari-home-showcase .ecari-option-card__title {
+  max-width: 20rem;
+  color: #111;
+  font-family: "Trebuchet MS", "Gill Sans", sans-serif;
+  font-size: 1.72rem;
+  font-weight: 900;
+  line-height: 1.12;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ecari-option-card__description {
+  margin: 1.25rem 0 0;
+  min-height: 4.5rem;
+  color: #2d2d2d;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.ecari-home-showcase .ecari-option-card__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 13.3rem;
+  margin-top: auto;
+  border: 2px solid rgba(155, 86, 61, 0.55);
+  border-radius: 0.45rem;
+  padding: 0.85rem 1.1rem;
+  color: #9b563d;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ecari-home-showcase .ecari-option-card[data-visual="don"] .ecari-option-card__cta {
+  border-color: transparent;
+  background: linear-gradient(180deg, #a76248 0%, #8d4a36 100%);
+  color: white;
+}
+
+.ecari-home-showcase .ecari-option-card__cta::after,
+.ecari-outline-button::after,
+.ecari-solid-button::after {
+  content: " ->";
+}
+
+.ecari-impact-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 1.8rem;
+  border-radius: 0.8rem;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 18px 34px rgba(35, 28, 25, 0.16);
+  overflow: hidden;
+}
+
+.ecari-impact-strip__item {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  min-height: 7.6rem;
+  padding: 1.3rem 1.7rem;
+  border-right: 1px solid rgba(79, 57, 50, 0.16);
+}
+
+.ecari-impact-strip__item:last-child {
+  border-right: 0;
+}
+
+.ecari-impact-strip__icon {
+  flex: none;
+  color: #9b563d;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2.8rem;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.ecari-impact-strip strong,
+.ecari-impact-strip span {
+  display: block;
+}
+
+.ecari-impact-strip strong {
+  color: #111;
+  font-size: 1.05rem;
+}
+
+.ecari-impact-strip span {
+  margin-top: 0.25rem;
+  color: #3b3b3b;
+  line-height: 1.45;
+}
+
+.ecari-site-footer {
+  background:
+    radial-gradient(circle at center, rgba(155, 86, 61, 0.18), transparent 32%),
+    linear-gradient(135deg, #2b211e 0%, #3b2b27 54%, #1d1817 100%);
+  color: white;
+  padding: 1.6rem 1rem 1.1rem;
+  text-align: center;
+}
+
+.ecari-site-footer__brandline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem 1.5rem;
+  flex-wrap: wrap;
+  font-size: 1.38rem;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.ecari-site-footer__logo {
+  width: 3.6rem;
+}
+
+.ecari-site-footer__logo-image {
+  height: auto;
+  width: 100%;
+  filter: brightness(0) invert(1);
+  opacity: 0.96;
+}
+
+.ecari-site-footer__copy {
+  margin-top: 0.6rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 1rem;
+}
+
+.ecari-marketing-page__inner {
+  width: min(1660px, 100%);
+  margin: 0 auto;
+  padding: 0 1.5rem 1.25rem;
+}
+
+.ecari-page-stack {
+  gap: 1rem;
+  padding-top: 0.75rem;
+}
+
+.ecari-page-hero {
+  position: relative;
+  min-height: 26.5rem;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  background: #f8f4ee;
+  box-shadow: 0 14px 32px rgba(45, 36, 31, 0.08);
+}
+
+.ecari-page-hero--plain {
+  min-height: auto;
+  padding: 3.3rem 4rem;
+}
+
+.ecari-page-hero__image {
+  object-fit: cover;
+  object-position: center;
+}
+
+.ecari-page-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255, 252, 247, 0.96) 0%, rgba(255, 252, 247, 0.86) 36%, rgba(255, 252, 247, 0.08) 72%);
+}
+
+.ecari-page-hero__content {
+  position: relative;
+  z-index: 1;
+  width: min(56rem, 58%);
+  padding: 4.2rem 4rem;
+}
+
+.ecari-page-eyebrow {
+  margin: 0;
+  color: #8d4a36;
+  font-size: 0.95rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.ecari-page-hero h1 {
+  margin: 1rem 0 0;
+  color: #17322d;
+  font-size: 3.65rem;
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.ecari-page-hero__content > p:not(.ecari-page-eyebrow) {
+  margin: 1.6rem 0 0;
+  color: #4c5855;
+  font-size: 1.25rem;
+  line-height: 1.55;
+}
+
+.ecari-page-rule {
+  display: block;
+  width: 6rem;
+  height: 3px;
+  margin-top: 1.6rem;
+  background: #9b563d;
+}
+
+.ecari-feature-grid,
+.ecari-contact-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.ecari-feature-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.ecari-contact-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.ecari-info-card,
+.ecari-contact-card {
+  position: relative;
+  display: flex;
+  min-height: 26rem;
+  overflow: hidden;
+  border: 1px solid rgba(82, 58, 47, 0.08);
+  border-radius: 1.2rem;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 14px 32px rgba(45, 36, 31, 0.08);
+}
+
+.ecari-info-card::after,
+.ecari-contact-card::after {
+  content: "";
+  position: absolute;
+  right: -4rem;
+  bottom: -3rem;
+  width: 13rem;
+  height: 13rem;
+  background: url("/ecari-logo.webp") center / contain no-repeat;
+  opacity: 0.06;
+}
+
+.ecari-info-card {
+  gap: 2rem;
+  padding: 2.2rem 2.4rem 2rem;
+}
+
+.ecari-contact-card {
+  flex-direction: column;
+  padding: 2rem 2.4rem 2.3rem;
+}
+
+.ecari-info-card__icon {
+  display: flex;
+  flex: none;
+  width: 7rem;
+  height: 7rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: #f4eee7;
+  color: #9b563d;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 3.2rem;
+  font-weight: 900;
+}
+
+.ecari-info-card__content {
+  position: relative;
+  z-index: 1;
+}
+
+.ecari-info-card h2,
+.ecari-contact-card h2 {
+  margin: 0;
+  color: #17322d;
+  font-size: 2rem;
+  line-height: 1.18;
+  letter-spacing: 0;
+}
+
+.ecari-info-card p:not(.ecari-page-eyebrow),
+.ecari-contact-card p {
+  color: #3f4544;
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+.ecari-outline-button,
+.ecari-solid-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 13rem;
+  margin-top: 1.7rem;
+  border-radius: 0.42rem;
+  padding: 0.85rem 1.2rem;
+  font-weight: 900;
+}
+
+.ecari-outline-button {
+  border: 1.5px solid rgba(155, 86, 61, 0.55);
+  color: #9b563d;
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.ecari-solid-button {
+  border: 1.5px solid transparent;
+  background: linear-gradient(180deg, #a76248 0%, #8d4a36 100%);
+  color: white;
+  box-shadow: 0 14px 26px rgba(96, 51, 38, 0.18);
+}
+
+.ecari-outline-button--wide,
+.ecari-solid-button--wide {
+  width: 100%;
+  margin-top: auto;
+}
+
+.ecari-note-box {
+  display: flex;
+  align-items: center;
+  min-height: 6rem;
+  margin-top: auto;
+  border: 1px dashed rgba(155, 86, 61, 0.28);
+  border-radius: 0.8rem;
+  padding: 1rem 1.3rem;
+  color: #3f4544;
+  line-height: 1.55;
+}
+
+@media (min-width: 1024px) {
+  .ecari-site-header__donate {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 1180px) {
+  .ecari-home-showcase .ecari-option-grid,
+  .ecari-impact-strip,
+  .ecari-contact-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ecari-feature-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .ecari-site-header {
+    min-height: auto;
+  }
+
+  .ecari-home-showcase {
+    min-height: auto;
+    padding: 2.4rem 1rem 1rem;
+  }
+
+  .ecari-home-heading h1 {
+    font-size: 2.2rem;
+  }
+
+  .ecari-home-heading p {
+    font-size: 1rem;
+  }
+
+  .ecari-home-showcase .ecari-option-grid,
+  .ecari-impact-strip,
+  .ecari-contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ecari-home-showcase .ecari-option-card {
+    min-height: 0;
+  }
+
+  .ecari-option-card__media {
+    min-height: 13.5rem;
+  }
+
+  .ecari-impact-strip__item {
+    border-right: 0;
+    border-bottom: 1px solid rgba(79, 57, 50, 0.16);
+  }
+
+  .ecari-impact-strip__item:last-child {
+    border-bottom: 0;
+  }
+
+  .ecari-marketing-page__inner {
+    padding: 0 1rem 1rem;
+  }
+
+  .ecari-page-hero {
+    min-height: 29rem;
+  }
+
+  .ecari-page-hero::after {
+    background: linear-gradient(90deg, rgba(255, 252, 247, 0.96), rgba(255, 252, 247, 0.64));
+  }
+
+  .ecari-page-hero__content {
+    width: 100%;
+    padding: 2.2rem 1.5rem;
+  }
+
+  .ecari-page-hero h1 {
+    font-size: 2.45rem;
+  }
+
+  .ecari-page-hero__content > p:not(.ecari-page-eyebrow) {
+    font-size: 1rem;
+  }
+
+  .ecari-info-card,
+  .ecari-contact-card {
+    min-height: auto;
+    border-radius: 1rem;
+    padding: 1.5rem;
+  }
+
+  .ecari-info-card {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .ecari-info-card__icon {
+    width: 5.2rem;
+    height: 5.2rem;
+    font-size: 2.2rem;
+  }
+
+  .ecari-info-card h2,
+  .ecari-contact-card h2 {
+    font-size: 1.65rem;
+  }
+
+  .ecari-site-footer__brandline {
+    flex-direction: column;
+    gap: 0.55rem;
+    font-size: 1.05rem;
   }
 }

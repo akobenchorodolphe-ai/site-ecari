@@ -17,6 +17,7 @@ export default defineConfig({
     exclude: ["tests/e2e/**", "node_modules/**", ".next/**"],
     fileParallelism: false,
     maxWorkers: 1,
+    pool: "threads",
     testTimeout: 20000,
   },
 });

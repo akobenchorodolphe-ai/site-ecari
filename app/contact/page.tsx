@@ -2,23 +2,28 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { MarketingPageShell } from "@/components/ecari/marketing-page-shell";
+import { CERAO_GOOGLE_FORM_URL } from "@/lib/ecari/google-form";
 import { buildPageMetadata } from "@/lib/ecari/metadata";
 
 const contactBlocks = [
   {
+    icon: "D",
     title: "Demandes enregistrees",
     description:
       "Les pages Don, Preinscription et Partenaire enregistrent maintenant de vraies demandes exploitables pour traitement manuel.",
     note: "Chaque demande genere une reference et un horodatage.",
   },
   {
+    icon: "C",
     title: "Recensement CERAO",
     description:
       "Le recensement des chercheurs CERAO passe temporairement par un lien Google Form accessible depuis l'accueil.",
-    href: "/",
-    cta: "Retour a l'accueil",
+    href: CERAO_GOOGLE_FORM_URL,
+    cta: "Ouvrir le formulaire CERAO",
+    external: true,
   },
   {
+    icon: "R",
     title: "Espace Rectorat",
     description:
       "Le back-office Rectorat reste disponible pour la lecture, le tri et l'export des candidatures.",
@@ -39,22 +44,40 @@ export default function ContactPage() {
     <MarketingPageShell
       description="Les informations de contact utiles restent centralisees ici, sans surcharger la page d'accueil."
       eyebrow="Contact"
+      heroAlt="Toque universitaire posee sur des livres."
+      heroImage="/ecari-contact-hero.webp"
       title="Les points de contact importants d'ECARI."
     >
-      <div className="grid gap-5 xl:grid-cols-3">
+      <div className="ecari-contact-grid">
         {contactBlocks.map((block) => (
-          <article className="ecari-content-card flex flex-col" key={block.title}>
-            <h2 className="text-2xl leading-tight text-[#18322c]">{block.title}</h2>
-            <p className="mt-4 flex-1 text-base leading-8 text-[#56675f]">
-              {block.description}
-            </p>
+          <article className="ecari-contact-card" key={block.title}>
+            <span className="ecari-info-card__icon" aria-hidden="true">
+              {block.icon}
+            </span>
+            <h2>{block.title}</h2>
+            <span className="ecari-page-rule" aria-hidden="true" />
+            <p>{block.description}</p>
 
             {"href" in block ? (
-              <Link className="btn-secondary mt-6 w-full text-center" href={block.href}>
-                {block.cta}
-              </Link>
+              "external" in block && block.external ? (
+                <a
+                  className="ecari-outline-button ecari-outline-button--wide"
+                  href={block.href}
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  {block.cta}
+                </a>
+              ) : (
+                <Link
+                  className="ecari-solid-button ecari-solid-button--wide"
+                  href={block.href}
+                >
+                  {block.cta}
+                </Link>
+              )
             ) : (
-              <div className="mt-6 rounded-[1.4rem] border border-dashed border-[rgba(53,79,69,0.22)] bg-white/62 px-4 py-4 text-sm leading-6 text-[#4f6158]">
+              <div className="ecari-note-box">
                 {block.note}
               </div>
             )}

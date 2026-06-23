@@ -16,7 +16,7 @@ export function SiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="ecari-site-header panel overflow-hidden px-4 py-3 md:px-5">
+    <header className="ecari-site-header overflow-hidden px-4 py-3 md:px-5">
       <div className="flex items-center justify-between gap-4">
         <Link
           className="flex min-w-0 items-center gap-3"
@@ -38,7 +38,7 @@ export function SiteHeader() {
 
         <nav
           aria-label="Navigation principale ECARI"
-          className="hidden items-center gap-4 lg:flex"
+          className="hidden items-center gap-11 lg:flex"
         >
           {navItems.map((item) => {
             const isActive = pathname === item.href;
@@ -58,6 +58,10 @@ export function SiteHeader() {
             );
           })}
         </nav>
+
+        <Link className="ecari-site-header__donate" href="/faire-un-don">
+          Soutenir la Recherche (Faire un Don)
+        </Link>
 
         <button
           aria-controls="ecari-mobile-menu"
@@ -117,6 +121,13 @@ export function SiteHeader() {
                   </Link>
                 );
               })}
+              <Link
+                className="rounded-[0.7rem] bg-[#9b563d] px-4 py-3 text-center text-sm font-black text-white shadow-[0_12px_24px_rgba(95,48,36,0.18)]"
+                href="/faire-un-don"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Soutenir la Recherche
+              </Link>
             </div>
           </div>
         </div>

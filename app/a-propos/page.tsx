@@ -12,6 +12,7 @@ export const metadata: Metadata = buildPageMetadata({
 
 const focusAreas = [
   {
+    icon: "Q",
     title: "La recherche",
     lead:
       "Parce que la recherche est essentielle pour l'industrialisation, la creation d'emplois et la competitivite.",
@@ -19,6 +20,7 @@ const focusAreas = [
       "La recherche de qualite permet de reagir aux urgences et de se preparer a l'avenir.",
   },
   {
+    icon: "I",
     title: "L'innovation",
     lead:
       "Parce qu'elle regroupe, rassemble diverses competences et facilite un apprentissage accelere, cadre et de qualite.",
@@ -32,16 +34,25 @@ export default function AboutPage() {
     <MarketingPageShell
       description="ECARI accompagne la recherche et l'innovation comme deux leviers complementaires pour renforcer la decision, l'autonomie institutionnelle et l'impact academique."
       eyebrow="A propos"
+      heroAlt="Diplome universitaire face a un paysage naturel."
+      heroImage="/ecari-about-hero.webp"
       title="Pourquoi ECARI s'interesse a la recherche et a l'innovation."
     >
-      <div className="grid gap-5 xl:grid-cols-2">
+      <div className="ecari-feature-grid">
         {focusAreas.map((area) => (
-          <article className="ecari-content-card" key={area.title}>
-            <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#7b4e1f]">
-              {area.title}
-            </p>
-            <p className="mt-4 text-2xl leading-9 text-[#203730]">{area.lead}</p>
-            <p className="mt-5 text-base leading-8 text-[#56675f]">{area.body}</p>
+          <article className="ecari-info-card" key={area.title}>
+            <span className="ecari-info-card__icon" aria-hidden="true">
+              {area.icon}
+            </span>
+            <div className="ecari-info-card__content">
+              <p className="ecari-page-eyebrow">{area.title}</p>
+              <h2>{area.lead}</h2>
+              <span className="ecari-page-rule" aria-hidden="true" />
+              <p>{area.body}</p>
+              <a className="ecari-outline-button" href="/contact">
+                En savoir plus
+              </a>
+            </div>
           </article>
         ))}
       </div>

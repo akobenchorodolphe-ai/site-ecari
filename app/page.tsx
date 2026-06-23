@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 
 import { HomeOptionGrid } from "@/components/ecari/home-option-grid";
 import { SiteHeader } from "@/components/ecari/site-header";
+import { SiteFooter } from "@/components/ecari/site-footer";
+import { CERAO_GOOGLE_FORM_URL } from "@/lib/ecari/google-form";
 import { buildPageMetadata } from "@/lib/ecari/metadata";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -13,40 +14,65 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function Home() {
-  const googleFormUrl = process.env.NEXT_PUBLIC_CERAO_GOOGLE_FORM_URL ?? "";
-  const year = new Date().getFullYear();
-
   return (
-    <main className="relative min-h-screen overflow-hidden">
-      <div className="ecari-home-bg" />
+    <main className="ecari-home-page">
+      <SiteHeader />
 
-      <div className="mx-auto flex min-h-screen w-full max-w-[1500px] flex-col px-4 py-4 md:px-6 md:py-6 lg:h-screen lg:max-h-screen">
-        <SiteHeader />
-
-        <section className="ecari-home-stage">
-          <HomeOptionGrid googleFormUrl={googleFormUrl} />
-        </section>
-
-        <footer className="ecari-home-footer">
-          <div className="ecari-home-footer__brandline">
-            <span>ESPACE CONSEIL D&apos;APPUI A LA</span>
-            <div className="ecari-home-footer__logo">
-              <Image
-                alt="Logo ECARI"
-                className="ecari-home-footer__logo-image"
-                height={800}
-                sizes="64px"
-                src="/ecari-logo.webp"
-                width={1280}
-              />
-            </div>
-            <span>RECHERCHE ET A L&apos;INNOVATION</span>
+      <section className="ecari-home-showcase">
+        <div className="ecari-home-showcase__shade" />
+        <div className="ecari-home-showcase__inner">
+          <div className="ecari-home-heading">
+            <h1>Recherche et innovation pour un impact durable</h1>
+            <p>
+              ECARI accompagne la communaute universitaire et la societe vers
+              un avenir meilleur.
+            </p>
           </div>
-          <p className="ecari-home-footer__copy">
-            &copy; {year} ECARI. Tous droits reserves.
-          </p>
-        </footer>
-      </div>
+
+          <HomeOptionGrid googleFormUrl={CERAO_GOOGLE_FORM_URL} />
+
+          <div className="ecari-impact-strip" aria-label="Axes ECARI">
+            <div className="ecari-impact-strip__item">
+              <span className="ecari-impact-strip__icon" aria-hidden="true">
+                Q
+              </span>
+              <div>
+                <strong>Valoriser la recherche</strong>
+                <span>Promouvoir l&apos;excellence academique et scientifique.</span>
+              </div>
+            </div>
+            <div className="ecari-impact-strip__item">
+              <span className="ecari-impact-strip__icon" aria-hidden="true">
+                I
+              </span>
+              <div>
+                <strong>Soutenir l&apos;innovation</strong>
+                <span>Encourager les idees creatives et les solutions durables.</span>
+              </div>
+            </div>
+            <div className="ecari-impact-strip__item">
+              <span className="ecari-impact-strip__icon" aria-hidden="true">
+                U
+              </span>
+              <div>
+                <strong>Former les leaders de demain</strong>
+                <span>Accompagner les etudiants vers la reussite.</span>
+              </div>
+            </div>
+            <div className="ecari-impact-strip__item">
+              <span className="ecari-impact-strip__icon" aria-hidden="true">
+                P
+              </span>
+              <div>
+                <strong>Agir ensemble</strong>
+                <span>Batir des partenariats solides pour l&apos;impact social.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <SiteFooter />
     </main>
   );
 }

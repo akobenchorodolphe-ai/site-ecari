@@ -1,4 +1,13 @@
 import Image from "next/image";
+import Link from "next/link";
+
+const footerLinks = [
+  { href: "/", label: "Accueil" },
+  { href: "/a-propos", label: "A propos" },
+  { href: "/contact", label: "Contact" },
+  { href: "/rectorat-ucao", label: "Rectorat" },
+  { href: "/oeuvres-pere-spirituel", label: "Oeuvres" },
+] as const;
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
@@ -22,6 +31,13 @@ export function SiteFooter() {
       <p className="ecari-site-footer__copy">
         &copy; {year} ECARI. Tous droits reserves.
       </p>
+      <nav className="ecari-site-footer__links" aria-label="Liens secondaires ECARI">
+        {footerLinks.map((link) => (
+          <Link href={link.href} key={link.href}>
+            {link.label}
+          </Link>
+        ))}
+      </nav>
     </footer>
   );
 }

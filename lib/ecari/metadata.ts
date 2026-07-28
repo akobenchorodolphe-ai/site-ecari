@@ -1,48 +1,81 @@
 import type { Metadata } from "next";
 
-import { getAppUrl } from "@/lib/env";
+import {
+  absoluteUrl,
+  ecariDefaultDescription,
+  ecariKeywords,
+  ecariOrganizationName,
+  ecariShortName,
+  ecariSiteName,
+  getSiteUrl,
+} from "@/lib/ecari/site";
 
-const siteName = "ECARI | UCAO";
-
-const defaultDescription =
-  "Plateforme ECARI de l'UCAO pour le don, le recensement CERAO, la preinscription etudiante et les partenariats financiers en recherche et innovation.";
-
-const defaultKeywords = [
-  "ECARI",
-  "UCAO",
-  "recherche",
-  "innovation",
-  "CERAO",
-  "preinscription etudiante",
-  "partenariat financier",
-] as const;
+const ogImage = {
+  alt: "Logo ECARI - Espace Conseil d'Appui a la Recherche et a l'Innovation",
+  height: 800,
+  url: "/ecari-logo.png",
+  width: 1280,
+};
 
 export function buildRootMetadata(): Metadata {
+  const googleSiteVerification = process.env.GOOGLE_SITE_VERIFICATION?.trim();
+
   return {
-    metadataBase: new URL(getAppUrl()),
+    metadataBase: new URL(getSiteUrl()),
     title: {
-      default: siteName,
+      default: `${ecariShortName} - ${ecariOrganizationName}`,
       template: "%s | ECARI | UCAO",
     },
-    description: defaultDescription,
-    applicationName: "ECARI",
-    keywords: [...defaultKeywords],
+    description: ecariDefaultDescription,
+    applicationName: ecariShortName,
+    authors: [{ name: ecariOrganizationName, url: absoluteUrl("/") }],
+    category: "education",
+    creator: ecariOrganizationName,
+    keywords: [...ecariKeywords],
+    publisher: ecariOrganizationName,
     alternates: {
       canonical: "/",
     },
+    icons: {
+      icon: [
+        { url: "/favicon.ico" },
+        { sizes: "1280x800", type: "image/webp", url: "/ecari-logo.webp" },
+      ],
+      apple: [{ url: "/ecari-logo.png" }],
+    },
     openGraph: {
       type: "website",
-      siteName,
+      siteName: ecariSiteName,
       locale: "fr_FR",
       url: "/",
-      title: siteName,
-      description: defaultDescription,
+      title: `${ecariShortName} - ${ecariOrganizationName}`,
+      description: ecariDefaultDescription,
+      images: [ogImage],
+    },
+    robots: {
+      follow: true,
+      googleBot: {
+        follow: true,
+        index: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+      index: true,
     },
     twitter: {
       card: "summary_large_image",
-      title: siteName,
-      description: defaultDescription,
+      title: `${ecariShortName} - ${ecariOrganizationName}`,
+      description: ecariDefaultDescription,
+      images: [ogImage.url],
     },
+    ...(googleSiteVerification
+      ? {
+          verification: {
+            google: googleSiteVerification,
+          },
+        }
+      : {}),
   };
 }
 
@@ -61,16 +94,18 @@ export function buildPageMetadata(options: PageMetadataOptions): Metadata {
     },
     openGraph: {
       type: "website",
-      siteName,
+      siteName: ecariSiteName,
       locale: "fr_FR",
       url: options.path,
       title: `${options.title} | ECARI | UCAO`,
       description: options.description,
+      images: [ogImage],
     },
     twitter: {
       card: "summary_large_image",
       title: `${options.title} | ECARI | UCAO`,
       description: options.description,
+      images: [ogImage.url],
     },
   };
 }

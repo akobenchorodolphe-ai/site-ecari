@@ -24,6 +24,7 @@ describe("ecariLeadSchema", () => {
       prenom: "Aimee",
       email: "aimee@example.org",
       phone: "+2250700000000",
+      uniteUniversitaire: "UCAO-UUA - Unite universitaire a Abidjan",
       niveauSouhaite: "Licence 1",
       filiereSouhaitee: "",
     });
@@ -41,7 +42,8 @@ describe("ecariLeadSchema", () => {
       contactName: "Yao Marie",
       email: "contact@example.org",
       phone: "+2250700000000",
-      supportType: "Financement de projet",
+      projectFocus: "Fonds d'appui aux etudiants",
+      supportType: "Adhesion a un projet",
       message: "trop court",
     });
 

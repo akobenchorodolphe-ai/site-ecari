@@ -707,8 +707,9 @@ button.ecari-option-card {
   position: relative;
   min-height: calc(100vh - 12.5rem);
   background:
-    linear-gradient(180deg, rgba(17, 17, 17, 0.48), rgba(17, 17, 17, 0.12)),
-    url("/ecari-home-backdrop.webp") center / cover no-repeat;
+    radial-gradient(circle at 18% 12%, rgba(155, 86, 61, 0.16), transparent 28%),
+    radial-gradient(circle at 82% 18%, rgba(23, 50, 45, 0.12), transparent 26%),
+    linear-gradient(180deg, #f8f2e8 0%, #ebe2d7 100%);
   padding: 4rem 1.5rem 0.7rem;
 }
 
@@ -716,7 +717,7 @@ button.ecari-option-card {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(16, 18, 18, 0.16), rgba(16, 18, 18, 0.02) 48%, rgba(255, 255, 255, 0.22));
+    linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.02) 48%, rgba(255, 255, 255, 0.34));
 }
 
 .ecari-home-showcase__inner {
@@ -727,9 +728,9 @@ button.ecari-option-card {
 }
 
 .ecari-home-heading {
-  color: white;
+  color: #17322d;
   text-align: center;
-  text-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
+  text-shadow: none;
 }
 
 .ecari-home-heading h1 {
@@ -747,6 +748,7 @@ button.ecari-option-card {
   font-size: 1.28rem;
   font-weight: 800;
   line-height: 1.45;
+  color: #4f5c58;
 }
 
 .ecari-home-showcase .ecari-option-grid {
@@ -962,6 +964,26 @@ button.ecari-option-card {
   font-size: 1rem;
 }
 
+.ecari-site-footer__links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.65rem 1rem;
+  margin-top: 0.85rem;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.86rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.ecari-site-footer__links a {
+  transition: color 160ms ease;
+}
+
+.ecari-site-footer__links a:hover {
+  color: white;
+}
+
 .ecari-marketing-page__inner {
   width: min(1660px, 100%);
   margin: 0 auto;
@@ -1165,6 +1187,90 @@ button.ecari-option-card {
   line-height: 1.55;
 }
 
+.ecari-project-panel {
+  border-radius: 2.1rem;
+  border: 1px solid rgba(53, 79, 69, 0.12);
+  background: rgba(255, 255, 255, 0.88);
+  padding: 1.5rem;
+  box-shadow: 0 20px 40px rgba(36, 51, 45, 0.08);
+}
+
+.ecari-project-panel h2,
+.ecari-callout-band h2 {
+  margin: 0.55rem 0 0;
+  color: #17322d;
+  font-size: 2rem;
+  line-height: 1.15;
+}
+
+.ecari-project-grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.2rem;
+}
+
+.ecari-project-card {
+  border-radius: 1.3rem;
+  border: 1px solid rgba(155, 86, 61, 0.14);
+  background: #fffdf8;
+  padding: 1.2rem;
+}
+
+.ecari-project-card span {
+  display: inline-flex;
+  color: #8d4a36;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ecari-project-card h3 {
+  margin: 0.35rem 0 0;
+  color: #17322d;
+  font-size: 1.32rem;
+  line-height: 1.16;
+}
+
+.ecari-project-card p,
+.ecari-project-card dd {
+  color: #4f5c58;
+  line-height: 1.58;
+}
+
+.ecari-project-card dl {
+  display: grid;
+  gap: 0.65rem;
+  margin: 1rem 0 0;
+}
+
+.ecari-project-card dt {
+  color: #8d4a36;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ecari-project-card dd {
+  margin: 0.25rem 0 0;
+}
+
+.ecari-feature-grid--compact .ecari-info-card {
+  min-height: 20rem;
+}
+
+.ecari-callout-band {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.ecari-callout-band__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
 @media (min-width: 1024px) {
   .ecari-site-header__donate {
     display: inline-flex;
@@ -1250,7 +1356,8 @@ button.ecari-option-card {
   }
 
   .ecari-info-card,
-  .ecari-contact-card {
+  .ecari-contact-card,
+  .ecari-project-panel {
     min-height: auto;
     border-radius: 1rem;
     padding: 1.5rem;

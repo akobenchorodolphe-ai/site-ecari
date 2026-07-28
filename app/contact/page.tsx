@@ -26,9 +26,9 @@ const contactBlocks = [
     icon: "R",
     title: "Espace Rectorat",
     description:
-      "Le back-office Rectorat reste disponible pour la lecture, le tri et l'export des candidatures.",
-    href: "/rectorat/login",
-    cta: "Ouvrir l'espace Rectorat",
+      "Une page dediee presente le Rectorat, sa composition, sa mission et son role de coordination.",
+    href: "/rectorat-ucao",
+    cta: "Decouvrir le Rectorat",
   },
 ] as const;
 

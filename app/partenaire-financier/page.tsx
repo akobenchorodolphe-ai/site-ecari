@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 
 import { MarketingPageShell } from "@/components/ecari/marketing-page-shell";
 import { PartnershipInterestForm } from "@/components/ecari/partnership-interest-form";
+import { partnershipProjects } from "@/lib/ecari/partnership-projects";
 import { buildPageMetadata } from "@/lib/ecari/metadata";
 
 const partnershipAxes = [
-  "Appui a la recherche appliquee et a l'innovation universitaire.",
-  "Soutien a des projets pilotes, programmes ou initiatives structurees.",
-  "Cooperation avec des acteurs institutionnels, philanthropiques ou prives.",
+  "Adhesion directe a un projet porte par ECARI.",
+  "Aide financiere totale ou partielle a un etudiant.",
+  "Subvention de recherche, d'innovation ou de structuration institutionnelle.",
 ] as const;
 
 export const metadata: Metadata = buildPageMetadata({
@@ -24,7 +25,7 @@ export default function FinancialPartnerPage() {
       eyebrow="Partenaire financier"
       title="Laisser une proposition concrete de partenariat a ECARI."
     >
-      <div className="grid gap-5">
+      <div className="grid gap-5 xl:grid-cols-[0.78fr_1.22fr]">
         <article className="ecari-content-card">
           <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#7b4e1f]">
             Orientation
@@ -41,6 +42,34 @@ export default function FinancialPartnerPage() {
             avant l&apos;ouverture d&apos;un espace partenaire plus complet.
           </p>
         </article>
+
+        <section className="ecari-project-panel" aria-labelledby="project-list-title">
+          <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#7b4e1f]">
+            Projets ouverts
+          </p>
+          <h2 id="project-list-title">Listing des projets a soutenir</h2>
+          <div className="ecari-project-grid">
+            {partnershipProjects.map((project) => (
+              <article className="ecari-project-card" key={project.title}>
+                <div>
+                  <span>{project.category}</span>
+                  <h3>{project.title}</h3>
+                </div>
+                <p>{project.objective}</p>
+                <dl>
+                  <div>
+                    <dt>Appui attendu</dt>
+                    <dd>{project.support}</dd>
+                  </div>
+                  <div>
+                    <dt>Impact recherche</dt>
+                    <dd>{project.impact}</dd>
+                  </div>
+                </dl>
+              </article>
+            ))}
+          </div>
+        </section>
       </div>
 
       <PartnershipInterestForm />

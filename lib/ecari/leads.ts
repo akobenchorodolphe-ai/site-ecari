@@ -4,6 +4,11 @@ import path from "node:path";
 import { z } from "zod";
 
 import { getStorageDir } from "@/lib/env";
+import {
+  partnershipSupportTypes,
+  ucaoUniversityUnits,
+} from "@/lib/ecari/options";
+import { partnershipProjectOptions } from "@/lib/ecari/partnership-projects";
 
 const phoneSchema = z
   .string()
@@ -58,6 +63,9 @@ const studentLeadSchema = z.object({
   prenom: nameSchema,
   email: emailSchema,
   phone: phoneSchema,
+  uniteUniversitaire: z.enum(ucaoUniversityUnits, {
+    error: () => ({ message: "Merci de choisir une unite universitaire." }),
+  }),
   niveauSouhaite: z
     .string()
     .trim()
@@ -81,17 +89,12 @@ const partnershipLeadSchema = z.object({
   contactName: nameSchema,
   email: emailSchema,
   phone: phoneSchema,
-  supportType: z.enum(
-    [
-      "Financement de projet",
-      "Bourse ou fonds dedie",
-      "Partenariat institutionnel",
-      "Autre contribution",
-    ],
-    {
-      error: () => ({ message: "Merci de preciser le type d'appui souhaite." }),
-    },
-  ),
+  projectFocus: z.enum(partnershipProjectOptions, {
+    error: () => ({ message: "Merci de choisir le projet cible." }),
+  }),
+  supportType: z.enum(partnershipSupportTypes, {
+    error: () => ({ message: "Merci de preciser le type d'appui souhaite." }),
+  }),
   message: messageSchema,
 });
 

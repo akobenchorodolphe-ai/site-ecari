@@ -3,6 +3,9 @@
 import type { FormEvent } from "react";
 import { useState } from "react";
 
+import { partnershipSupportTypes } from "@/lib/ecari/options";
+import { partnershipProjectOptions } from "@/lib/ecari/partnership-projects";
+
 type SubmissionState =
   | { status: "idle" }
   | { status: "error"; message: string }
@@ -14,15 +17,9 @@ type PartnershipDraft = {
   message: string;
   organisation: string;
   phone: string;
+  projectFocus: string;
   supportType: string;
 };
-
-const supportTypes = [
-  "Financement de projet",
-  "Bourse ou fonds dedie",
-  "Partenariat institutionnel",
-  "Autre contribution",
-] as const;
 
 const initialState: PartnershipDraft = {
   contactName: "",
@@ -30,6 +27,7 @@ const initialState: PartnershipDraft = {
   message: "",
   organisation: "",
   phone: "",
+  projectFocus: "",
   supportType: "",
 };
 
@@ -62,6 +60,7 @@ export function PartnershipInterestForm() {
           contactName: form.contactName,
           email: form.email,
           phone: form.phone,
+          projectFocus: form.projectFocus,
           supportType: form.supportType,
           message: form.message,
         }),
@@ -154,6 +153,24 @@ export function PartnershipInterestForm() {
         </div>
 
         <label className="mt-6 block">
+          <span className="label">Projet cible</span>
+          <select
+            className="field"
+            name="projectFocus"
+            onChange={(event) => updateField("projectFocus", event.target.value)}
+            required
+            value={form.projectFocus}
+          >
+            <option value="">Choisir un projet</option>
+            {partnershipProjectOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="mt-6 block">
           <span className="label">Type d&apos;appui envisage</span>
           <select
             className="field"
@@ -163,7 +180,7 @@ export function PartnershipInterestForm() {
             value={form.supportType}
           >
             <option value="">Choisir un type d&apos;appui</option>
-            {supportTypes.map((option) => (
+            {partnershipSupportTypes.map((option) => (
               <option key={option} value={option}>
                 {option}
               </option>
@@ -211,7 +228,7 @@ export function PartnershipInterestForm() {
           Appuis possibles
         </p>
         <div className="mt-5 flex flex-wrap gap-3">
-          {supportTypes.map((option) => (
+          {partnershipSupportTypes.map((option) => (
             <span className="badge" key={option}>
               {option}
             </span>

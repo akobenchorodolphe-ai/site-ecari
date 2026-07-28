@@ -3,6 +3,8 @@
 import type { FormEvent } from "react";
 import { useState } from "react";
 
+import { ucaoUniversityUnits } from "@/lib/ecari/options";
+
 type SubmissionState =
   | { status: "idle" }
   | { status: "error"; message: string }
@@ -16,6 +18,7 @@ type StudentRequestDraft = {
   nom: string;
   phone: string;
   prenom: string;
+  uniteUniversitaire: string;
 };
 
 const levelOptions = [
@@ -35,6 +38,7 @@ const initialState: StudentRequestDraft = {
   nom: "",
   phone: "",
   prenom: "",
+  uniteUniversitaire: "",
 };
 
 export function StudentPreRegistrationForm() {
@@ -66,6 +70,7 @@ export function StudentPreRegistrationForm() {
           prenom: form.prenom,
           email: form.email,
           phone: form.phone,
+          uniteUniversitaire: form.uniteUniversitaire,
           niveauSouhaite: form.niveauSouhaite,
           filiereSouhaitee: form.filiereSouhaitee,
           message: form.message,
@@ -158,6 +163,24 @@ export function StudentPreRegistrationForm() {
           </label>
 
           <label>
+            <span className="label">Unite universitaire</span>
+            <select
+              className="field"
+              name="uniteUniversitaire"
+              onChange={(event) => updateField("uniteUniversitaire", event.target.value)}
+              required
+              value={form.uniteUniversitaire}
+            >
+              <option value="">Choisir une unite</option>
+              {ucaoUniversityUnits.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <label>
             <span className="label">Niveau souhaite</span>
             <select
               className="field"
@@ -225,7 +248,7 @@ export function StudentPreRegistrationForm() {
 
       <aside className="panel rounded-[2.2rem] px-6 py-6 md:px-7">
         <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#7b4e1f]">
-          Parcours
+          Information sur les parcours
         </p>
         <div className="mt-5 flex flex-wrap gap-3">
           {levelOptions.map((option) => (

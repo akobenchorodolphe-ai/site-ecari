@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { HomeOptionGrid } from "@/components/ecari/home-option-grid";
 import { SiteHeader } from "@/components/ecari/site-header";
 import { SiteFooter } from "@/components/ecari/site-footer";
-import { CERAO_GOOGLE_FORM_URL } from "@/lib/ecari/google-form";
 import { buildPageMetadata } from "@/lib/ecari/metadata";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -29,7 +28,7 @@ export default function Home() {
             </p>
           </div>
 
-          <HomeOptionGrid googleFormUrl={CERAO_GOOGLE_FORM_URL} />
+          <HomeOptionGrid />
 
           <div className="ecari-impact-strip" aria-label="Axes ECARI">
             <div className="ecari-impact-strip__item">

@@ -10,7 +10,8 @@ import {
   THESE_CONTENT_TYPES,
 } from "@/lib/cerao/constants";
 import type { SavedUpload } from "@/lib/cerao/types";
-import { getStorageDir } from "@/lib/env";
+import { NetlifyBlobsStorage } from "@/lib/cerao/netlify-blobs-storage";
+import { getStorageBackend, getStorageDir } from "@/lib/env";
 
 type UploadPolicy = {
   allowedContentTypes: readonly string[];
@@ -123,7 +124,29 @@ class LocalDiskStorage {
   }
 }
 
-export const storage = new LocalDiskStorage();
+const localDiskStorage = new LocalDiskStorage();
+const netlifyBlobsStorage = new NetlifyBlobsStorage();
+
+export const storage = {
+  saveFile(file: File, options: SaveOptions) {
+    return (getStorageBackend() === "netlify-blobs"
+      ? netlifyBlobsStorage
+      : localDiskStorage
+    ).saveFile(file, options);
+  },
+  removeFolder(folder: string) {
+    return (getStorageBackend() === "netlify-blobs"
+      ? netlifyBlobsStorage
+      : localDiskStorage
+    ).removeFolder(folder);
+  },
+  read(relativePath: string) {
+    return (getStorageBackend() === "netlify-blobs"
+      ? netlifyBlobsStorage
+      : localDiskStorage
+    ).read(relativePath);
+  },
+};
 
 export const PHOTO_UPLOAD_POLICY = {
   allowedContentTypes: PHOTO_CONTENT_TYPES,

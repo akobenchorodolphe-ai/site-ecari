@@ -1,9 +1,11 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
+import { getStore } from "@netlify/blobs";
+
 import { z } from "zod";
 
-import { getStorageDir } from "@/lib/env";
+import { getStorageBackend, getStorageDir } from "@/lib/env";
 import {
   partnershipSupportTypes,
   ucaoUniversityUnits,
@@ -154,6 +156,15 @@ export async function saveEcariLead(input: EcariLeadInput): Promise<StoredEcariL
     status: "NEW",
     submittedAt,
   };
+
+  if (getStorageBackend() === "netlify-blobs") {
+    await getStore({ name: "ecari-leads", consistency: "strong" }).setJSON(
+      `${year}/${month}/${typeFolder}/${id}.json`,
+      record,
+    );
+
+    return record;
+  }
 
   await mkdir(folder, { recursive: true });
   await writeFile(path.join(folder, `${id}.json`), JSON.stringify(record, null, 2), "utf8");

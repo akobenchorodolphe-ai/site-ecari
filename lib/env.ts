@@ -1,5 +1,7 @@
 const DEFAULT_STORAGE_DIR = "storage";
 
+export type StorageBackend = "local" | "netlify-blobs";
+
 export function readEnv(name: string, fallback?: string) {
   const value = process.env[name] ?? fallback;
 
@@ -24,4 +26,18 @@ export function getAppUrl() {
 
 export function getStorageDir() {
   return process.env.STORAGE_DIR ?? DEFAULT_STORAGE_DIR;
+}
+
+export function getStorageBackend(): StorageBackend {
+  const configuredBackend = process.env.STORAGE_BACKEND?.trim().toLowerCase();
+
+  if (!configuredBackend) {
+    return process.env.NETLIFY ? "netlify-blobs" : "local";
+  }
+
+  if (configuredBackend === "local" || configuredBackend === "netlify-blobs") {
+    return configuredBackend;
+  }
+
+  throw new Error("STORAGE_BACKEND doit etre defini sur local ou netlify-blobs.");
 }

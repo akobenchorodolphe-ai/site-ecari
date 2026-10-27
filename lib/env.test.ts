@@ -4,6 +4,7 @@ import { getStorageBackend } from "@/lib/env";
 
 const originalStorageBackend = process.env.STORAGE_BACKEND;
 const originalNetlify = process.env.NETLIFY;
+const originalContext = process.env.CONTEXT;
 
 afterEach(() => {
   if (originalStorageBackend === undefined) {
@@ -16,6 +17,12 @@ afterEach(() => {
     delete process.env.NETLIFY;
   } else {
     process.env.NETLIFY = originalNetlify;
+  }
+
+  if (originalContext === undefined) {
+    delete process.env.CONTEXT;
+  } else {
+    process.env.CONTEXT = originalContext;
   }
 });
 
@@ -30,8 +37,17 @@ describe("getStorageBackend", () => {
   it("selectionne Netlify Blobs sur Netlify", () => {
     delete process.env.STORAGE_BACKEND;
     process.env.NETLIFY = "true";
+    process.env.CONTEXT = "production";
 
     expect(getStorageBackend()).toBe("netlify-blobs");
+  });
+
+  it("conserve le stockage local dans un apercu Netlify", () => {
+    delete process.env.STORAGE_BACKEND;
+    process.env.NETLIFY = "true";
+    process.env.CONTEXT = "deploy-preview";
+
+    expect(getStorageBackend()).toBe("local");
   });
 
   it("refuse un backend inconnu", () => {

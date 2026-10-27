@@ -32,7 +32,9 @@ export function getStorageBackend(): StorageBackend {
   const configuredBackend = process.env.STORAGE_BACKEND?.trim().toLowerCase();
 
   if (!configuredBackend) {
-    return process.env.NETLIFY ? "netlify-blobs" : "local";
+    return process.env.NETLIFY && process.env.CONTEXT === "production"
+      ? "netlify-blobs"
+      : "local";
   }
 
   if (configuredBackend === "local" || configuredBackend === "netlify-blobs") {
